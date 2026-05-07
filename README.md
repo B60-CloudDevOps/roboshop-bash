@@ -10,3 +10,10 @@ This is exepcted to run on the top of the component servers, to execute the scri
 2) Do a git clone of your repo that has bash for roboshop
 3) and then switch to the repo and then run
     $ bash frontend.sh
+
+# Whenever we deal things that scale, we need an NFR that has to be followed across the board!
+NFR: Non-Functional Requirement
+
+1) When we automate something, the re-run of that should work without any disruption.
+2) When you restart the compoments, apps should come up automatically.
+3) Code should always support multi-environment.
