@@ -21,7 +21,7 @@ dnf module enable nginx:1.24 -y
 echo "Installing Nginx"
 dnf install nginx -y
 
-echo "Downloading the $COMPONENT component
+echo "Downloading the $COMPONENT component"
 curl -L -o /tmp/frontend.zip https://stan-robotshop.s3.amazonaws.com/$COMPONENT-v3.zip
 
 echo "Performing cleanup:"
@@ -31,9 +31,8 @@ rm -rf *
 echo "Extracting the $COMPONENT component"
 unzip /tmp/$COMPONENT.zip
 
-
 echo "Starting the $COMPONENT service"
 systemctl enable nginx
 systemctl restart nginx
 
-echo "Configuration Management for $COMPONENT in completed!!!"
+echo "Configuration Management for $COMPONENT in completed!"
