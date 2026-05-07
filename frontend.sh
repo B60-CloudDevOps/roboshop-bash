@@ -51,6 +51,10 @@ echo -n "Extracting the $COMPONENT component: "
 unzip -o /tmp/$COMPONENT.zip &>> $LOG
 stat $?
 
+echo -n "Configuring $COMPONENT proxy file"
+cp nginx.conf /etc/nginx/nginx.conf
+stat $?
+
 echo -n "Starting the $COMPONENT service: "
 systemctl enable nginx &>> $LOG
 systemctl restart nginx &>> $LOG

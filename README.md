@@ -18,3 +18,4 @@ NFR: Non-Functional Requirement
     2) When you restart the compoments, apps should come up automatically.
     3) Code should always support multi-environment.
     4) When you see some value is repeated multiple times, make sure it's parameterized
+    5) All the backend components should be accessed privately with private dns records
