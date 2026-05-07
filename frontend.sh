@@ -13,74 +13,47 @@ if [ $ID -ne 0 ]; then
     exit 1
 fi
 
+stat() {
+    if [ $1 -eq 0 ]; then 
+        echo -e "\e[32m Success \e[0m"
+    else
+        echo -e "\e[33m Failure \e[0m "
+        exit 2
+    fi 
+}
+
 echo "Disabling the default nginx version"
 dnf module disable nginx -y &>> $LOG
-if [ $? -eq 0 ]; then 
-    echo -e "\e[32m Success \e[0m"
-else
-    echo -e "\e[33m Failure \e[0m "
-    exit 2
-fi 
+stat $?
 
 echo "Enabling Nginx 24 version"
 dnf module enable nginx:1.24 -y &>> $LOG
-if [ $? -eq 0 ]; then 
-    echo -e "\e[32m Success \e[0m"
-else
-    echo -e "\e[33m Failure \e[0m "
-    exit 2
-fi 
+stat $?
 
 
 echo "Installing Nginx"
 dnf install nginx -y &>> $LOG
-if [ $? -eq 0 ]; then 
-    echo -e "\e[32m Success \e[0m"
-else
-    echo -e "\e[33m Failure \e[0m "
-    exit 2
-fi 
+stat $?
 
 
 echo "Downloading the $COMPONENT component"
 curl -L -o /tmp/frontend.zip https://stan-robotshop.s3.amazonaws.com/$COMPONENT-v3.zip &>> $LOG
-if [ $? -eq 0 ]; then 
-    echo -e "\e[32m Success \e[0m"
-else
-    echo -e "\e[33m Failure \e[0m "
-    exit 2
-fi 
+stat $?
 
 
 echo "Performing cleanup:"
 cd /usr/share/nginx/html
 rm -rf *
-if [ $? -eq 0 ]; then 
-    echo -e "\e[32m Success \e[0m"
-else
-    echo -e "\e[33m Failure \e[0m "
-    exit 2
-fi 
+stat $?
 
 
 echo "Extracting the $COMPONENT component"
-unzip /tmp/$COMPONENT.zip &>> $LOG
-if [ $? -eq 0 ]; then 
-    echo -e "\e[32m Success \e[0m"
-else
-    echo -e "\e[33m Failure \e[0m "
-    exit 2
-fi 
-
+unzip -o /tmp/$COMPONENT.zip &>> $LOG
+stat $?
 
 echo "Starting the $COMPONENT service"
 systemctl enable nginx &>> $LOG
 systemctl restart nginx &>> $LOG
-if [ $? -eq 0 ]; then 
-    echo -e "\e[32m Success \e[0m"
-else
-    echo -e "\e[33m Failure \e[0m "
-    exit 2
-fi 
+stat $?
 
 echo "Configuration Management for $COMPONENT in completed!"
