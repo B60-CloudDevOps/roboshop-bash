@@ -54,6 +54,7 @@ fi
 
 echo "Performing cleanup:"
 cd /usr/share/nginx/html
+rm -rf *
 if [ $? -eq 0 ]; then 
     echo -e "\e[32m Success \e[0m"
 else
@@ -81,6 +82,5 @@ else
     echo -e "\e[33m Failure \e[0m "
     exit 2
 fi 
-
 
 echo "Configuration Management for $COMPONENT in completed!"
