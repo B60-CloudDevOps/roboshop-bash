@@ -20,3 +20,20 @@ dnf module enable nginx:1.24 -y
 
 echo "Installing Nginx"
 dnf install nginx -y
+
+echo "Downloading the frontend component"
+curl -L -o /tmp/frontend.zip https://stan-robotshop.s3.amazonaws.com/frontend-v3.zip
+
+echo "Performing cleanup:"
+cd /usr/share/nginx/html
+rm -rf *
+
+echo "Extracting the frontend component"
+unzip /tmp/frontend.zip
+
+
+echo "Starting the frontend service"
+systemctl enable nginx
+systemctl restart nginx
+
+echo "Configuration Management for frontend in completed!!!"
