@@ -56,4 +56,4 @@ systemctl enable nginx &>> $LOG
 systemctl restart nginx &>> $LOG
 stat $?
 
-echo -e "\n \t ___ Configuration Management for $COMPONENT in completed!"
+echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
