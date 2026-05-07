@@ -30,25 +30,20 @@ echo -n "Enabling Nginx 24 version: "
 dnf module enable nginx:1.24 -y &>> $LOG
 stat $?
 
-
 echo -n "Installing Nginx:"
 dnf install nginx -y &>> $LOG
 stat $?
-
 
 echo -n "Downloading the $COMPONENT component:"
 curl -L -o /tmp/frontend.zip https://stan-robotshop.s3.amazonaws.com/$COMPONENT-v3.zip &>> $LOG
 stat $?
 
-
 echo -n "Performing cleanup:"
-cd /usr/share/nginx/html
-rm -rf *
+rm -rf /usr/share/nginx/html/
 stat $?
 
-
 echo -n "Extracting the $COMPONENT component: "
-unzip -o /tmp/$COMPONENT.zip &>> $LOG
+unzip -o /tmp/$COMPONENT.zip -d /usr/share/nginx/html/ &>> $LOG
 stat $?
 
 echo -n "Configuring $COMPONENT proxy file"
