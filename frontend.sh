@@ -15,25 +15,67 @@ fi
 
 echo "Disabling the default nginx version"
 dnf module disable nginx -y &>> $LOG
+if [ $? -eq 0 ]; then 
+    echo "Success"
+else
+    echo "Failure"
+    exit 2
+fi 
 
 echo "Enabling Nginx 24 version"
 dnf module enable nginx:1.24 -y &>> $LOG
+if [ $? -eq 0 ]; then 
+    echo "Success"
+else
+    echo "Failure"
+    exit 2
+fi 
 
 echo "Installing Nginx"
 dnf install nginx -y &>> $LOG
+if [ $? -eq 0 ]; then 
+    echo "Success"
+else
+    echo "Failure"
+    exit 2
+fi 
 
 echo "Downloading the $COMPONENT component"
 curl -L -o /tmp/frontend.zip https://stan-robotshop.s3.amazonaws.com/$COMPONENT-v3.zip &>> $LOG
+if [ $? -eq 0 ]; then 
+    echo "Success"
+else
+    echo "Failure"
+    exit 2
+fi 
 
 echo "Performing cleanup:"
 cd /usr/share/nginx/html
 rm -rf * &>> $LOG
+if [ $? -eq 0 ]; then 
+    echo "Success"
+else
+    echo "Failure"
+    exit 2
+fi 
 
 echo "Extracting the $COMPONENT component"
 unzip /tmp/$COMPONENT.zip &>> $LOG
+if [ $? -eq 0 ]; then 
+    echo "Success"
+else
+    echo "Failure"
+    exit 2
+fi 
 
 echo "Starting the $COMPONENT service"
 systemctl enable nginx &>> $LOG
 systemctl restart nginx &>> $LOG
+if [ $? -eq 0 ]; then 
+    echo "Success"
+else
+    echo "Failure"
+    exit 2
+fi 
 
 echo "Configuration Management for $COMPONENT in completed!"
