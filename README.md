@@ -14,7 +14,7 @@ This is exepcted to run on the top of the component servers, to execute the scri
 # Whenever we deal things that scale, we need an NFR that has to be followed across the board!
 NFR: Non-Functional Requirement
 
-1) When we automate something, the re-run of that should work without any disruption.
-2) When you restart the compoments, apps should come up automatically.
-3) Code should always support multi-environment.
-4) When you see some value is repeated multiple times, make sure it's parameterized
+    1) When we automate something, the re-run of that should work without any disruption.
+    2) When you restart the compoments, apps should come up automatically.
+    3) Code should always support multi-environment.
+    4) When you see some value is repeated multiple times, make sure it's parameterized
