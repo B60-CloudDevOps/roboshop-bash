@@ -13,26 +13,26 @@ if [ $ID -ne 0 ]; then
 fi
 
 echo "Disabling the default nginx version"
-dnf module disable nginx -y
+dnf module disable nginx -y &>> /tmp/${COMPONENT}.log
 
 echo "Enabling Nginx 24 version"
-dnf module enable nginx:1.24 -y
+dnf module enable nginx:1.24 -y &>> /tmp/${COMPONENT}.log
 
 echo "Installing Nginx"
-dnf install nginx -y
+dnf install nginx -y &>> /tmp/${COMPONENT}.log
 
 echo "Downloading the $COMPONENT component"
-curl -L -o /tmp/frontend.zip https://stan-robotshop.s3.amazonaws.com/$COMPONENT-v3.zip
+curl -L -o /tmp/frontend.zip https://stan-robotshop.s3.amazonaws.com/$COMPONENT-v3.zip &>> /tmp/${COMPONENT}.log
 
 echo "Performing cleanup:"
 cd /usr/share/nginx/html
-rm -rf *
+rm -rf * &>> /tmp/${COMPONENT}.log
 
 echo "Extracting the $COMPONENT component"
-unzip /tmp/$COMPONENT.zip
+unzip /tmp/$COMPONENT.zip &>> /tmp/${COMPONENT}.log
 
 echo "Starting the $COMPONENT service"
-systemctl enable nginx
-systemctl restart nginx
+systemctl enable nginx &>> /tmp/${COMPONENT}.log
+systemctl restart nginx &>> /tmp/${COMPONENT}.log
 
 echo "Configuration Management for $COMPONENT in completed!"
