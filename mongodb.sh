@@ -32,7 +32,10 @@ echo -n "Installing $COMPONENT:"
 dnf install mongodb-org -y  &>> $LOG 
 stat $? 
 
+echo -n "Updating the $COMPONENT visibility:"
+sed -ie 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
+
 echo -n "Starting $COMPONENT service:"
 systemctl enable mongod
-systemctl start mongod
+systemctl restart mongod
 stat $?
