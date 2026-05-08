@@ -19,3 +19,12 @@ NFR: Non-Functional Requirement
     3) Code should always support multi-environment.
     4) When you see some value is repeated multiple times, make sure it's parameterized
     5) All the backend components should be accessed privately with private dns records
+
+
+
+> Basics are important
+1) If I say run the script test.sh
+2) git clone or git pull the repo
+3) Make sure that script is in the folder that you're running
+4) ls -ltr
+5) bash test.sh 
