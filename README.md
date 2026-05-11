@@ -20,11 +20,21 @@ NFR: Non-Functional Requirement
     4) When you see some value is repeated multiple times, make sure it's parameterized
     5) All the backend components should be accessed privately with private dns records
 
-
-
 > Basics are important
 1) If I say run the script test.sh
 2) git clone or git pull the repo
 3) Make sure that script is in the folder that you're running
 4) ls -ltr
 5) bash test.sh 
+
+# We can buy domain in aws as well, but if we already have a domain, we can move it to AWS Route53 or buy a domain on Hostinger or GoDaddy and can be managed by AWS Route53 using Domain Transer
+
+> Going forward
+    1) We will create A Type DNS Record with Public IP Address for frontend and for rest of the components, we will create A Type records using the private ip address of the component.
+
+> How can we manage a domain that we bought on HOSTINGER or GODADDY to be managed from Cloud ?
+    1) To do that, create a Public Hosted zone with the domain you bought like sample.com on AWS Route53
+    2) Then AWS offers you the nameservers, whch are the windows servers managed by the AWS.
+    3) Then copy these nameservers on AWS and replace them with what you see on hostiner domain.
+
+This way, requests related to your domain will be forwated to the hosted zone created by you on AWS Route53.
