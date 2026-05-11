@@ -38,3 +38,4 @@ NFR: Non-Functional Requirement
     3) Then copy these nameservers on AWS and replace them with what you see on hostiner domain.
 
 This way, requests related to your domain will be forwated to the hosted zone created by you on AWS Route53.
+Once you update the Nameservers of AWS Route53 Hosted zone on your domain provider, it's going to take 1 to 24 hrs of time for them to work on AWS (for the first time )
