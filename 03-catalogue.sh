@@ -23,55 +23,58 @@ stat() {
     fi 
 }
 
-echo "Disabling the default nodejs version :"
+echo -n "Disabling the default nodejs version :"
 dnf module disable nodejs -y &>> $LOG
 stat $? 
 
-echo "Enabling the nodejs version 20 :"
+echo -n "Enabling the nodejs version 20 :"
 dnf module enable nodejs:20 -y &>> $LOG
 stat $? 
 
-echo "Installing Nodejs :"
+echo -n "Installing Nodejs :"
 dnf install nodejs -y &>> $LOG
 stat $?
 
-echo "Creating roboshop user account :"
+echo -n "Creating roboshop user account :"
 useradd $APPUSER 
 stat $? 
 
-echo "Performing cleanup of $COMPONENT :"
+echo -n "Performing cleanup of $COMPONENT :"
 rm -rf /app/ || true 
 stat $?
 
-echo "Creating APP directory :"
+echo -n "Creating APP directory :"
 mkdir /app
 stat $? 
 
-echo "Downloading the $COMPONENT app :"
+echo -n "Downloading the $COMPONENT app :"
 curl -o /tmp/catalogue.zip https://stan-robotshop.s3.amazonaws.com/${COMPONENT}-v3.zip 
 stat $?
 
-echo "Configuring systemd for $COMPONENT :"
+echo -n "Configuring systemd for $COMPONENT :"
 cp ${COMPONENT}.service /etc/systemd/system/${COMPONENT}.service
 
-echo "Extracting the $COMPONENT app"
+echo -n "Extracting the $COMPONENT app"
 unzip -o /tmp/${COMPONENT}.zip -d /app/  &>> $LOG
 stat $?
 
-echo "Generating $COMPONENT Artifacts :"
+echo -n "Generating $COMPONENT Artifacts :"
 cd /app/
 npm install  &>> $LOG
 stat  $? 
 
-echo "Installing mongodb schema :"
+echo -n "Configuring Mongo shell repo :"
+cp mongodb.repo /etc/yum.repos.d/mongo.repo
+
+echo -n "Installing mongodb shell :"
 dnf install mongodb-mongosh -y &>> $LOG
 stat $?
 
-echo "Injecting the schema :"
+echo -n "Injecting the schema :"
 mongosh --host mongodb.robotshop.fun </app/db/master-data.js &>> $LOG
 stat $? 
 
-echo "Starting $COMPONENT service :"
+echo -n "Starting $COMPONENT service :"
 systemctl enable $COMPONENT &>> $LOG
 systemctl start $COMPONENT &>> $LOG
 stat $? 
