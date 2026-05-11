@@ -54,7 +54,7 @@ mkdir /app
 stat $? 
 
 echo -n "Downloading the $COMPONENT app :"
-curl -o /tmp/catalogue.zip https://stan-robotshop.s3.amazonaws.com/${COMPONENT}-v3.zip 
+curl -os /tmp/catalogue.zip https://stan-robotshop.s3.amazonaws.com/${COMPONENT}-v3.zip 
 stat $?
 
 echo -n "Configuring systemd for $COMPONENT :"
@@ -64,13 +64,13 @@ echo -n "Extracting the $COMPONENT app"
 unzip -o /tmp/${COMPONENT}.zip -d /app/  &>> $LOG
 stat $?
 
+echo -n "Configuring Mongo shell repo :"
+cp mongodb.repo /etc/yum.repos.d/mongo.repo
+
 echo -n "Generating $COMPONENT Artifacts :"
 cd /app/
 npm install  &>> $LOG
 stat  $? 
-
-echo -n "Configuring Mongo shell repo :"
-cp mongodb.repo /etc/yum.repos.d/mongo.repo
 
 echo -n "Installing mongodb shell :"
 dnf install mongodb-mongosh -y &>> $LOG
