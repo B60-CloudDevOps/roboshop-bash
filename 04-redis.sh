@@ -36,16 +36,16 @@ dnf install redis -y  &>> $LOG
 stat $? 
 
 echo -n "Updating the $COMPONENT visibility:"
-sed -ie 's/127.0.0.1/0.0.0.0/' /etc/redis/redis.conf
+sed -ie 's/127.0.0.1/0.0.0.0/' /etc/redis/redis.conf  &>> $LOG 
 stat $?
 
-# echo -n "Updating the $COMPONENT protected mode:"
-# sed -ie 's/127.0.0.1/0.0.0.0/' /etc/redis.conf
-# stat $?
+echo -n "Updating the $COMPONENT protected mode:"
+sed -ie 's/protected-mode yes/protected-mode no/' /etc/redis/redis.conf  &>> $LOG 
+stat $?
 
 echo -n "Starting $COMPONENT service:"
-systemctl enable $COMPONENT
-systemctl restart $COMPONENT
+systemctl enable $COMPONENT  &>> $LOG 
+systemctl restart $COMPONENT  &>> $LOG 
 stat $?
 
 echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
