@@ -35,8 +35,14 @@ echo -n "Installing Nodejs :"
 dnf install nodejs -y &>> $LOG
 stat $?
 
-echo -n "Creating roboshop user account :"
-useradd $APPUSER 
+id $APPUSER  &>> $LOG
+if [ $? -ne 0 ]; then
+    echo -n "Creating roboshop user account :"
+    useradd $APPUSER 
+    stat $?
+else
+    echo -n "SKIPPING"
+fi 
 stat $? 
 
 echo -n "Performing cleanup of $COMPONENT :"
