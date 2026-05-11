@@ -1,11 +1,10 @@
 #!/bin/bash
 
-
-
 # I want to make sure that the scirpt has to validate whether the user running the script is root user or not, if not root user, script has to be exited
 ID=$(id -u)
-COMPONENT="mongodb"
+COMPONENT="redis"
 LOG="/tmp/${COMPONENT}.log"
+VERSION=7
 
 if [ $ID -ne 0 ]; then 
     echo -e "\e[35m Script has to executed as a root user or with sudo \e[0m"
@@ -24,21 +23,29 @@ stat() {
     fi 
 }
 
-echo -n "Configuring the repo:"
-cp mongo.repo /etc/yum.repos.d/mongo.repo
-stat $? 
+echo -n "Disabling $COMPONENT default version :"
+dnf module disable redis -y &>> $LOG 
+stat $?
+
+echo -n "Enabling $COMPONENT $VERSION version :"
+dnf module enable redis:7 -y &>> $LOG 
+stat $?
 
 echo -n "Installing $COMPONENT:"
-dnf install mongodb-org -y  &>> $LOG 
+dnf install redis -y  &>> $LOG 
 stat $? 
 
 echo -n "Updating the $COMPONENT visibility:"
-sed -ie 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
+sed -ie 's/127.0.0.1/0.0.0.0/' /etc/redis.conf
 stat $?
 
+# echo -n "Updating the $COMPONENT protected mode:"
+# sed -ie 's/127.0.0.1/0.0.0.0/' /etc/redis.conf
+# stat $?
+
 echo -n "Starting $COMPONENT service:"
-systemctl enable mongod
-systemctl restart mongod
+systemctl enable $COMPONENT
+systemctl restart $COMPONENT
 stat $?
 
 echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
