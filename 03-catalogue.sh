@@ -65,7 +65,7 @@ unzip -o /tmp/${COMPONENT}.zip -d /app/  &>> $LOG
 stat $?
 
 echo -n "Configuring Mongo shell repo :"
-cp mongodb.repo /etc/yum.repos.d/mongo.repo
+cp mongo.repo /etc/yum.repos.d/mongo.repo
 
 echo -n "Generating $COMPONENT Artifacts :"
 cd /app/

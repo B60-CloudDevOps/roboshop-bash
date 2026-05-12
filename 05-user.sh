@@ -54,7 +54,7 @@ mkdir /app
 stat $? 
 
 echo -n "Downloading the $COMPONENT app :"
-curl -o /tmp/${COMPONENT}.zip https://stan-robotshop.s3.amazonaws.com/${COMPONENT}-v3.zip 
+curl -o /tmp/${COMPONENT}.zip https://stan-robotshop.s3.amazonaws.com/${COMPONENT}-v3.zip  &>> $LOG
 stat $?
 
 echo -n "Configuring systemd for $COMPONENT :"
