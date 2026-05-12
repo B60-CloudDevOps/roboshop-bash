@@ -1,27 +1,9 @@
 #!/bin/bash
 
 # I want to make sure that the scirpt has to validate whether the user running the script is root user or not, if not root user, script has to be exited
-ID=$(id -u)
 COMPONENT="catalogue"
-APPUSER="roboshop"
-LOG="/tmp/${COMPONENT}.log"
 
-echo "Configuration Management for $COMPONENT in progress"
-
-if [ $ID -ne 0 ]; then 
-    echo -e "\e[35m Script has to executed as a root user or with sudo \e[0m"
-    echo -e "Example Usage: \n\t \e[33m sudo bash $0  OR # bash $0 \e[0m"
-    exit 1
-fi
-
-stat() {
-    if [ $1 -eq 0 ]; then 
-        echo -e "\e[32m Success \e[0m"
-    else
-        echo -e "\e[33m Failure \e[0m "
-        exit 2
-    fi 
-}
+source common.sh
 
 echo -n "Disabling the default nodejs version :"
 dnf module disable nodejs -y &>> $LOG

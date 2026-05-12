@@ -39,3 +39,16 @@ NFR: Non-Functional Requirement
 
 This way, requests related to your domain will be forwated to the hosted zone created by you on AWS Route53.
 Once you update the Nameservers of AWS Route53 Hosted zone on your domain provider, it's going to take 1 to 24 hrs of time for them to work on AWS (for the first time )
+
+# When you write a script or code, ensure the code is not duplicated. Always make sure the code is DRY!!!!
+
+> DRY vs WET Code ?
+
+DRY: Don't Repeat Yourself
+Core Principle: Every piece of knowledge or logic must have a single, unambiguous, authoritative representation in a system.
+
+Advantages: Makes code easier to maintain, test, and scale. 
+Changes only need to be applied in one place.
+Best Used For: Complex logic, database queries, API calls, and validation logic.
+
+WET Code is a code that's written multiple times.
