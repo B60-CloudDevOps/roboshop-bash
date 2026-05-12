@@ -2,7 +2,7 @@
 
 # I want to make sure that the scirpt has to validate whether the user running the script is root user or not, if not root user, script has to be exited
 ID=$(id -u)
-COMPONENT="catalogue"
+COMPONENT="user"
 APPUSER="roboshop"
 LOG="/tmp/${COMPONENT}.log"
 
@@ -64,21 +64,10 @@ echo -n "Extracting the $COMPONENT app"
 unzip -o /tmp/${COMPONENT}.zip -d /app/  &>> $LOG
 stat $?
 
-echo -n "Configuring Mongo shell repo :"
-cp mongodb.repo /etc/yum.repos.d/mongo.repo
-
 echo -n "Generating $COMPONENT Artifacts :"
 cd /app/
 npm install  &>> $LOG
 stat  $? 
-
-echo -n "Installing mongodb shell :"
-dnf install mongodb-mongosh -y &>> $LOG
-stat $?
-
-echo -n "Injecting the schema :"
-mongosh --host mongodb.robotshop.fun </app/db/master-data.js &>> $LOG
-stat $? 
 
 echo -n "Starting $COMPONENT service :"
 systemctl enable $COMPONENT &>> $LOG
