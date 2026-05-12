@@ -5,9 +5,9 @@ COMPONENT="catalogue"
 
 source ./common.sh
 
-echo -n "Disabling the default nodejs version :"
-dnf module disable nodejs -y &>> $LOG
-stat $? 
+# echo -n "Disabling the default nodejs version :"
+# dnf module disable nodejs -y &>> $LOG
+# stat $? 
 
 echo -n "Enabling the nodejs version 20 :"
 dnf module enable nodejs:20 -y &>> $LOG
