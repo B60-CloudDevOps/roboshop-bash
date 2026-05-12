@@ -59,6 +59,7 @@ stat $?
 
 echo -n "Configuring systemd for $COMPONENT :"
 cp ${COMPONENT}.service /etc/systemd/system/${COMPONENT}.service
+stat $?
 
 echo -n "Extracting the $COMPONENT app"
 unzip -o /tmp/${COMPONENT}.zip -d /app/  &>> $LOG
