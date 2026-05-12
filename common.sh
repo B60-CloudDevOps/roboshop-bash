@@ -20,3 +20,92 @@ stat() {
         exit 2
     fi 
 }
+
+
+create_user() {
+    id $APPUSER  &>> $LOG
+    if [ $? -ne 0 ]; then
+        echo -n "Creating roboshop user account :"
+        useradd $APPUSER 
+        stat $?
+    else
+        echo -n "SKIPPING"
+    fi 
+    stat $? 
+}
+
+
+download_and_extract() {
+    echo -n "Performing cleanup of $COMPONENT :"
+    rm -rf /app/ || true 
+    stat $?
+
+    echo -n "Creating APP directory :"
+    mkdir /app
+    stat $? 
+
+    echo -n "Downloading the $COMPONENT app :"
+    curl -o /tmp/${COMPONENT}.zip https://stan-robotshop.s3.amazonaws.com/${COMPONENT}-v3.zip  &>> $LOG
+    stat $?
+
+    echo -n "Extracting the $COMPONENT app"
+    unzip -o /tmp/${COMPONENT}.zip -d /app/  &>> $LOG
+    stat $?
+}
+
+config_svc() {
+    echo -n "Configuring systemd for $COMPONENT :"
+    cp ${COMPONENT}.service /etc/systemd/system/${COMPONENT}.service
+    stat $?
+
+    echo -n "Starting $COMPONENT service :"
+    systemctl enable $COMPONENT &>> $LOG
+    systemctl start $COMPONENT &>> $LOG
+    stat $? 
+}
+
+install_monghShell() {
+    echo -n "Configuring Mongo shell repo :"
+    cp mongo.repo /etc/yum.repos.d/mongo.repo
+
+    echo -n "Installing mongodb shell :"
+    dnf install mongodb-mongosh -y &>> $LOG
+    stat $?
+}
+
+nodejs() {
+    echo -n "Disabling the default nodejs version :"
+    dnf module disable nodejs -y &>> $LOG
+    stat $? 
+
+    echo -n "Enabling the nodejs version 20 :"
+    dnf module enable nodejs:20 -y &>> $LOG
+    stat $? 
+
+    echo -n "Installing Nodejs :"
+    dnf install nodejs -y &>> $LOG
+    stat $?
+
+    create_user
+
+    download_app
+
+    install_monghShell
+
+    download_and_extract
+
+    echo -n "Generating $COMPONENT Artifacts :"
+    npm install --prefix ./app &>> $LOG
+    stat  $?
+    
+    if [ "$COMPONENT" == "catalogue" ]; then
+        echo -n "Injecting the schema :"
+        mongosh --host mongodb.robotshop.fun </app/db/master-data.js &>> $LOG
+        stat $? 
+    fi 
+
+    config_svc
+
+    echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
+
+}
