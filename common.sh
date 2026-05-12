@@ -88,8 +88,6 @@ nodejs() {
 
     create_user
 
-    download_app
-
     install_monghShell
 
     download_and_extract
