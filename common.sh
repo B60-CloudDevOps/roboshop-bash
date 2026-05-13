@@ -132,6 +132,8 @@ maven() {
     
     install_mysql
 
+    config_svc
+
     if [ "$COMPONENT" == "shipping" ]; then
         echo -n "Injecting the schema :"
         mysql -h mysql.robotshop.fun -uroot -pRoboShop@1 < /app/db/schema.sql &>> $LOG
@@ -139,12 +141,10 @@ maven() {
         echo -n "Injecting the appUser info :"
         mysql -h mysql.robotshop.fun -uroot -pRoboShop@1 < /app/db/app-user.sql &>> $LOG
         stat $?
-        echo -n "Injecting the appUser info :"
+        echo -n "Injecting the master-data info :"
         mysql -h mysql.robotshop.fun -uroot -pRoboShop@1 < /app/db/master-data.sql &>> $LOG
-        stat $? 
+        stat $
     fi 
-
-    config_svc
 
     echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
 }
