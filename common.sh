@@ -149,5 +149,4 @@ maven() {
     config_svc
 
     echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
-
 }
