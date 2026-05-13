@@ -124,8 +124,6 @@ maven() {
 
     download_and_extract
     
-    config_svc
-
     echo -n "Generating $COMPONENT Artifacts :"
     cd /app
     mvn clean package  &>> $LOG
