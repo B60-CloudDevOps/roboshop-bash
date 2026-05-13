@@ -161,7 +161,7 @@ python() {
     
     echo -n "Generating $COMPONENT Artifacts :"
     cd /app
-    pip3 install -r requirements.txt>> $LOG
+    pip3 install -r requirements.txt &>> $LOG
     cd -
     stat  $?
 
