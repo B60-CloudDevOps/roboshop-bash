@@ -144,7 +144,7 @@ maven() {
         stat $?
         echo -n "Injecting the master-data info :"
         mysql -h mysql.robotshop.fun -uroot -pRoboShop@1 < /app/db/master-data.sql &>> $LOG
-        stat $
+        stat $?
     fi 
 
     echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
