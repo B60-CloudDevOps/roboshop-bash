@@ -12,7 +12,7 @@ if [[ "$ID" -ne 0 && -z "$ENVIRONMENT" ]]; then
     echo "Env Name is ${ENVIRONMENT}"
     exit 1
 fi
-    echo "Env Name is ${ENVIRONMENT}"
+
 stat() {
     if [ $1 -eq 0 ]; then 
         echo -e "\e[32m Success \e[0m"
@@ -21,7 +21,6 @@ stat() {
         exit 2
     fi 
 }
-
 
 create_user() {
     id $APPUSER  &>> $LOG
@@ -34,7 +33,6 @@ create_user() {
     fi 
     stat $? 
 }
-
 
 download_and_extract() {
     echo -n "Performing cleanup of $COMPONENT :"
@@ -112,7 +110,7 @@ nodejs() {
         stat $? 
     fi 
 
-    echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
+    echo -e "\n \t ___ Configuration Management for $COMPONENT $ENVIRONMENT in completed! ___"
 
 }
 
