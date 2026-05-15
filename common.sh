@@ -8,7 +8,7 @@ LOG="/tmp/${COMPONENT}.log"
 
 if [ $ID -ne 0 ] && [ -z $ENVIRONMENT ]; then 
     echo -e "\e[35m Script has to executed as a root user or with sudo \e[0m"
-    echo -e "Example Usage: \n\t \e[33m sudo bash $0 $ENVIRONMENT OR # bash $0 \e[0m"
+    echo -e "Example Usage: \n\t \e[33m sudo bash $0 $1 OR # bash $0 \e[0m"
     exit 1
 fi
 
