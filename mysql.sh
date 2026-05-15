@@ -3,8 +3,9 @@
 # I want to make sure that the scirpt has to validate whether the user running the script is root user or not, if not root user, script has to be exited
 COMPONENT="mysql"
 source ./common.sh
+ENVIRONMENT="$1"
 
-echo -n "Installing $COMPONENT server :"
+echo -n "Installing $COMPONENT $ENVIRONMENT server :"
 dnf install mysql-server -y  &>> $LOG 
 stat $? 
 
@@ -20,4 +21,4 @@ echo -n "Configuring the root password"
 mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOG 
 stat $?
 
-echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
+echo -e "\n \t ___ Configuration Management for $COMPONENT $ENVIRONMENT in completed! ___"
