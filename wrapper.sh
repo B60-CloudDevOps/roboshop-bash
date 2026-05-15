@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 component=$1
 environment=$2
 if [ -z "$1" ] && [ -z "$2" ]; then 
@@ -8,4 +7,4 @@ if [ -z "$1" ] && [ -z "$2" ]; then
     exit 3
 fi 
 
-bash ${1}.sh 
+bash ${1}.sh $environment
