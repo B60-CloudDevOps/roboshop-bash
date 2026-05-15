@@ -57,11 +57,12 @@ stat $?
 
 echo -n "Configuring $COMPONENT proxy file"
 cp nginx.conf /etc/nginx/nginx.conf
+sed -i -e "s/env/${ENVIRONMENT}/g" /etc/nginx/nginx.conf
 stat $?
 
-echo -n "Starting the $COMPONENT service: "
-systemctl enable nginx &>> $LOG
-systemctl restart nginx &>> $LOG
-stat $?
+# echo -n "Starting the $COMPONENT service: "
+# systemctl enable nginx &>> $LOG
+# systemctl restart nginx &>> $LOG
+# stat $?
 
 echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
