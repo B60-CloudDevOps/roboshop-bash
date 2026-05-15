@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Configuration Management for $COMPONENT in progress"
+echo "Configuration Management for $COMPONENT $1 in progress"
 
 ID=$(id -u)
 APPUSER="roboshop"
