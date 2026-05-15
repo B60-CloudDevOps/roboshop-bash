@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # I want to make sure that the scirpt has to validate whether the user running the script is root user or not, if not root user, script has to be exited
-ID=$(id -u)
 COMPONENT="redis"
-LOG="/tmp/${COMPONENT}.log"
+source ./common.sh
+ENVIRONMENT="$1"
 VERSION=7
 
 if [ $ID -ne 0 ]; then 
@@ -11,17 +11,6 @@ if [ $ID -ne 0 ]; then
     echo -e "Example Usage: \n\t \e[33m sudo bash $0  OR # bash $0 \e[0m"
     exit 1
 fi
-
-echo "Configuration Management for $COMPONENT in progress"
-
-stat() {
-    if [ $1 -eq 0 ]; then 
-        echo -e "\e[32m Success \e[0m"
-    else
-        echo -e "\e[33m Failure \e[0m "
-        exit 2
-    fi 
-}
 
 echo -n "Disabling $COMPONENT default version :"
 dnf module disable redis -y &>> $LOG 
@@ -48,4 +37,4 @@ systemctl enable $COMPONENT  &>> $LOG
 systemctl restart $COMPONENT  &>> $LOG 
 stat $?
 
-echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
+echo -e "\n \t ___ Configuration Management for $COMPONENT $ENVIRONMENT in completed! ___"
