@@ -9,10 +9,10 @@ LOG="/tmp/${COMPONENT}.log"
 if [[ "$ID" -ne 0 && -z "$ENVIRONMENT" ]]; then
     echo -e "\e[35m Script has to executed as a root user or with sudo \e[0m"
     echo -e "Example Usage: \n\t \e[33m sudo bash $0 env OR # bash $0 env \e[0m"
-    echo "Env Name is $ENVIRONMENT"
+    echo "Env Name is ${ENVIRONMENT}"
     exit 1
 fi
-
+    echo "Env Name is ${ENVIRONMENT}"
 stat() {
     if [ $1 -eq 0 ]; then 
         echo -e "\e[32m Success \e[0m"
@@ -108,7 +108,7 @@ nodejs() {
     
     if [ "$COMPONENT" == "catalogue" ]; then
         echo -n "Injecting the schema :"
-        mongosh --host mongodb-{$1}.robotshop.fun </app/db/master-data.js &>> $LOG
+        mongosh --host mongodb-${ENVIRONMENT}.robotshop.fun </app/db/master-data.js &>> $LOG
         stat $? 
     fi 
 
