@@ -5,9 +5,10 @@
 # I want to make sure that the scirpt has to validate whether the user running the script is root user or not, if not root user, script has to be exited
 ID=$(id -u)
 COMPONENT="frontend"
+ENVIRONMENT=$2
 LOG="/tmp/${COMPONENT}.log"
 
-echo "Configuration Management for $COMPONENT $environment in progress"
+echo "Configuration Management for $COMPONENT $ENVIRONMENT in progress"
 
 if [ $ID -ne 0 ]; then 
     echo -e "\e[35m Script has to executed as a root user or with sudo \e[0m"
