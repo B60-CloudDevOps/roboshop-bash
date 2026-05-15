@@ -4,6 +4,7 @@
 COMPONENT="catalogue"
 ENVIRONMENT="$1"
 source ./common.sh
+
 nodejs
 
 
