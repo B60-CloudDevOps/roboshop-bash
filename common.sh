@@ -55,7 +55,7 @@ download_and_extract() {
 config_svc() {
     echo -n "Configuring systemd for $COMPONENT :"
     cp ${COMPONENT}.service /etc/systemd/system/${COMPONENT}.service
-    sed -e -i "s/env/${ENVIRONMENT}/g" /etc/systemd/system/${COMPONENT}.service
+    sed  -i  -e "s/env/${ENVIRONMENT}/g" /etc/systemd/system/${COMPONENT}.service
     stat $?
 
     echo -n "Starting $COMPONENT service :"
