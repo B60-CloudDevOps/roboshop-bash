@@ -16,7 +16,7 @@ if [ $ID -ne 0 ]; then
     exit 1
 fi 
 
-if [ -z $2 ]; then 
+if [ -z $1 ]; then 
     echo -e "\e[35m Script has to executed as a root user or with sudo  + environment \e[0m"
     echo -e "Example Usage: \n\t \e[33m sudo bash $0 environment \e[0m"
     exit 2
