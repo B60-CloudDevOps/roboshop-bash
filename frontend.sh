@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Configuration Management for frontend in progress"
+echo "Configuration Management for $component $environment in progress"
 
 # I want to make sure that the scirpt has to validate whether the user running the script is root user or not, if not root user, script has to be exited
 ID=$(id -u)
